@@ -34,10 +34,22 @@ export default async function BlogCategory({ params }: { params: Promise<{ categ
         Back to Blog
       </Link>
 
-      <h1 className="text-3xl font-bold mb-2">Category: {categoryDisplayName(category)}</h1>
+      <h1 className="text-3xl font-bold mb-2">Category: {category ? categoryDisplayName(category): ""}</h1>
       <p className="text-muted-foreground mb-6">
         {filteredPost.length} post{filteredPost.length !== 1 ? "s" : ""} in this category
       </p>
+
+      <div className="mt-6 flex gap-3 mb-4">
+        <Link href="/blog">
+          <Button variant="outline">All Posts</Button>
+        </Link>
+
+        {BLOG_CATEGORIES.map((category) => (
+          <Link key={category.slug} href={`/blog/category/${category.slug}`}>
+            <Button variant="outline">{category.name}</Button>
+          </Link>
+        ))}
+      </div>
 
       <div className="flex flex-col gap-4">
         {filteredPost.length === 0 ? (
@@ -61,24 +73,6 @@ export default async function BlogCategory({ params }: { params: Promise<{ categ
             </Link>
           ))
         )}
-
-        <div className="mt-6 flex gap-3">
-          <Link href="/blog">
-            <Button variant="outline">All Posts</Button>
-          </Link>
-
-          <Link href="/blog/category/tech">
-            <Button variant="outline">Technology</Button>
-          </Link>
-
-          <Link href="/blog/category/design">
-            <Button variant="outline">Design</Button>
-          </Link>
-
-          <Link href="/blog/category/life">
-            <Button variant="outline">Life</Button>
-          </Link>
-        </div>
       </div>
     </div>
   )

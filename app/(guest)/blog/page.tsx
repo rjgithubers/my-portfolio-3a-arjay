@@ -1,4 +1,4 @@
-import { BLOG_POSTS } from "@/constants/blog";
+import { BLOG_POSTS, BLOG_CATEGORIES } from "@/constants/blog";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
@@ -12,17 +12,11 @@ export default function BlogPage() {
           <Button variant="outline">All Posts</Button>
         </Link>
 
-        <Link href="/blog/category/tech">
-          <Button variant="outline">Technology</Button>
-        </Link>
-
-        <Link href="/blog/category/design">
-          <Button variant="outline">Design</Button>
-        </Link>
-
-        <Link href="/blog/category/life">
-          <Button variant="outline">Life</Button>
-        </Link>
+        {BLOG_CATEGORIES.map((category) => (
+          <Link key={category.slug} href={`/blog/category/${category.slug}`}>
+            <Button variant="outline">{category.name}</Button>
+          </Link>
+        ))}
       </div>
 
       <div className="flex flex-col gap-4">
